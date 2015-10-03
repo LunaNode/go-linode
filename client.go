@@ -23,13 +23,13 @@ type Client struct {
 	apiURL string
 }
 
-type APIError struct {
+type apiError struct {
 	Code int `json:"ERRORCODE"`
 	Message string `json:"ERRORMESSAGE"`
 }
 
-type GenericResponse struct {
-	Errors []APIError `json:"ERRORARRAY"`
+type genericResponse struct {
+	Errors []apiError `json:"ERRORARRAY"`
 	Action string `json:"ACTION"`
 	Data interface{} `json:"DATA"`
 }
@@ -71,7 +71,7 @@ func (client *Client) request(action string, params map[string]string, dataTarge
 	}
 
 	// unmarshal json
-	responseTarget := new(GenericResponse)
+	responseTarget := new(genericResponse)
 	responseTarget.Data = dataTarget
 	err = json.Unmarshal(contents, responseTarget)
 	if err != nil {
@@ -81,9 +81,9 @@ func (client *Client) request(action string, params map[string]string, dataTarge
 	}
 
 	// check for non-0 errors (0 is "ok" error)
-	for _, apiError := range responseTarget.Errors {
-		if apiError.Code != 0 {
-			return fmt.Errorf("API error (%s) %d: %s", action, apiError.Code, apiError.Message)
+	for _, apiErr := range responseTarget.Errors {
+		if apiErr.Code != 0 {
+			return fmt.Errorf("API error (%s) %d: %s", action, apiErr.Code, apiErr.Message)
 		}
 	}
 	return nil

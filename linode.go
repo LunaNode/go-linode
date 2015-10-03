@@ -12,7 +12,7 @@ func (client *Client) CreateLinode(datacenterID int, planID int) (int, error) {
 		"DatacenterID": fmt.Sprintf("%d", datacenterID),
 		"PlanID": fmt.Sprintf("%d", planID),
 	}
-	response := new(LinodeIDResponse)
+	response := new(linodeIDResponse)
 	err := client.request("linode.create", params, response)
 	return response.LinodeID, err
 }
@@ -34,7 +34,7 @@ func (client *Client) linodeAction(action string, linodeID int) (int, error) {
 	params := map[string]string{
 		"LinodeID": fmt.Sprintf("%d", linodeID),
 	}
-	response := new(JobResponse)
+	response := new(jobResponse)
 	err := client.request("linode." + action, params, response)
 	return response.JobID, err
 }
@@ -50,7 +50,7 @@ func (client *Client) BootLinodeWithConfig(linodeID int, configID int) (int, err
 		"LinodeID": fmt.Sprintf("%d", linodeID),
 		"ConfigID": fmt.Sprintf("%d", configID),
 	}
-	response := new(JobResponse)
+	response := new(jobResponse)
 	err := client.request("linode.boot", params, response)
 	return response.JobID, err
 }
@@ -107,7 +107,7 @@ func (client *Client) CloneLinode(linodeID int, datacenterID int, planID int) (i
 		"DatacenterID": fmt.Sprintf("%d", datacenterID),
 		"PlanID": fmt.Sprintf("%d", planID),
 	}
-	response := new(LinodeIDResponse)
+	response := new(linodeIDResponse)
 	err := client.request("linode.clone", params, response)
 	return response.LinodeID, err
 }
@@ -185,7 +185,7 @@ func (client *Client) CreateConfig(linodeID int, kernelID int, label string, dis
 	if options.DisableAutomountDevtmpfs {
 		params["devtmpfs_automount"] = "0"
 	}
-	response := new(ConfigIDResponse)
+	response := new(configIDResponse)
 	err := client.request("linode.config.create", params, response)
 	return response.ConfigID, err
 }
@@ -217,7 +217,7 @@ func (client *Client) CreateDisk(linodeID int, label string, diskType string, si
 	if diskOptions.IsReadOnly {
 		params["isReadOnly"] = "1"
 	}
-	response := new(LinodeDiskCreateResponse)
+	response := new(linodeDiskCreateResponse)
 	err := client.request("linode.disk.create", params, response)
 	return response.DiskID, response.JobID, err
 }
@@ -233,7 +233,7 @@ func (client *Client) CreateDiskFromDistribution(linodeID int, label string, dis
 	if rootSSHKey != "" {
 		params["rootSSHKey"] = rootSSHKey
 	}
-	response := new(LinodeDiskCreateResponse)
+	response := new(linodeDiskCreateResponse)
 	err := client.request("linode.disk.createfromdistribution", params, response)
 	return response.DiskID, response.JobID, err
 }
@@ -251,7 +251,7 @@ func (client *Client) CreateDiskFromImage(linodeID int, label string, imageID in
 	if rootSSHKey != "" {
 		params["rootSSHKey"] = rootSSHKey
 	}
-	response := new(LinodeDiskCreateResponse)
+	response := new(linodeDiskCreateResponse)
 	err := client.request("linode.disk.createfromimage", params, response)
 	return response.DiskID, response.JobID, err
 }
@@ -261,7 +261,7 @@ func (client *Client) DeleteDisk(linodeID int, diskID int) (int, error) {
 		"LinodeID": fmt.Sprintf("%d", linodeID),
 		"DiskID": fmt.Sprintf("%d", diskID),
 	}
-	response := new(JobResponse)
+	response := new(jobResponse)
 	err := client.request("linode.disk.delete", params, response)
 	return response.JobID, err
 }
@@ -272,7 +272,7 @@ func (client *Client) ImagizeDisk(linodeID int, diskID int, label string) (int, 
 		"DiskID": fmt.Sprintf("%d", diskID),
 		"Label": label,
 	}
-	response := new(ImagizeResponse)
+	response := new(imagizeResponse)
 	err := client.request("linode.disk.imagize", params, response)
 	return response.ImageID, response.JobID, err
 }
@@ -283,7 +283,7 @@ func (client *Client) ResizeDisk(linodeID int, diskID int, size int) (int, error
 		"DiskID": fmt.Sprintf("%d", diskID),
 		"size": fmt.Sprintf("%d", size),
 	}
-	response := new(JobResponse)
+	response := new(jobResponse)
 	err := client.request("linode.disk.resize", params, response)
 	return response.JobID, err
 }
@@ -349,7 +349,7 @@ func (client *Client) AddIP(linodeID int, private bool) (int, error) {
 	if private {
 		action = "linode.ip.addprivate"
 	}
-	response := new(IPIDResponse)
+	response := new(ipIDResponse)
 	err := client.request(action, params, response)
 	return response.ID, err
 }

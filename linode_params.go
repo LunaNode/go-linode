@@ -5,11 +5,11 @@ package linode
 
 import "fmt"
 
-type LinodeIDResponse struct {
+type linodeIDResponse struct {
 	LinodeID int `json:"LinodeID"`
 }
 
-type JobResponse struct {
+type jobResponse struct {
 	JobID int `json:"JobID"`
 }
 
@@ -57,7 +57,7 @@ func (linode *Linode) Parse() {
 	}
 }
 
-type ConfigIDResponse struct {
+type configIDResponse struct {
 	ConfigID int `json:"ConfigID"`
 }
 
@@ -83,17 +83,17 @@ type CreateDiskOptions struct {
 	IsReadOnly bool
 }
 
-type LinodeDiskCreateResponse struct {
+type linodeDiskCreateResponse struct {
 	JobID int `json:"JobID"`
 	DiskID int `json:"DiskID"`
 }
 
-type ImagizeResponse struct {
+type imagizeResponse struct {
 	JobID int `json:"JobID"`
 	ImageID int `json:"ImageID"`
 }
 
-type IPIDResponse struct {
+type ipIDResponse struct {
 	ID int `json:"IPAddressID"`
 }
 
