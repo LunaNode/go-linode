@@ -1,14 +1,14 @@
 go-linode
 =========
 
-A Go library for interacting with the Linode API. [View the GoDoc](https://godoc.org/github.com/lunanode/go-linode).
+A Go library for interacting with the Linode API. [View the GoDoc](https://godoc.org/github.com/LunaNode/go-linode).
 
 Usage
 -----
 
 Import with:
 ```
-import github.com/lunanode/go-linode
+import github.com/LunaNode/go-linode
 ```
 
 And use as linode:
