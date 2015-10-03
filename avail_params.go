@@ -1,3 +1,6 @@
+// Copyright (c) 2015 LunaNode Hosting Inc. All right reserved.
+// Use of this source code is governed by the MIT License. See LICENSE file.
+
 package linode
 
 type Datacenter struct {
