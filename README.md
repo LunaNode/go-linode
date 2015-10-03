@@ -43,3 +43,9 @@ if err != nil {
 }
 client.BootLinodeWithConfig(linodeID, configID)
 ```
+
+Examples
+--------
+
+See the [Lobster module for Linode API](https://github.com/LunaNode/lobster/tree/master/vmlinode) for an example
+use of this library.
