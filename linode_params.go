@@ -43,7 +43,7 @@ type Linode struct {
 	Watchdog int `json:"WATCHDOG"`
 }
 
-func (linode *Linode) Parse() {
+func (linode *Linode) parse() {
 	if linode.Status == -1 {
 		linode.StatusString = "Being Created"
 	} else if linode.Status == 0 {

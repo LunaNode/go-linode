@@ -70,7 +70,7 @@ func (client *Client) ListLinodes() ([]*Linode, error) {
 		return nil, err
 	}
 	for _, linode := range linodes {
-		linode.Parse()
+		linode.parse()
 	}
 	return linodes, nil
 }
@@ -86,7 +86,7 @@ func (client *Client) GetLinode(linodeID int) (*Linode, error) {
 	} else if len(linodes) != 1 {
 		return nil, errors.New("expected one linode in response")
 	} else {
-		linodes[0].Parse()
+		linodes[0].parse()
 		return linodes[0], nil
 	}
 }
