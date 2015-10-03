@@ -6,6 +6,7 @@ package linode
 import "errors"
 import "fmt"
 
+// Creates a new Linode, returning Linode ID on success.
 func (client *Client) CreateLinode(datacenterID int, planID int) (int, error) {
 	params := map[string]string{
 		"DatacenterID": fmt.Sprintf("%d", datacenterID),
@@ -16,6 +17,9 @@ func (client *Client) CreateLinode(datacenterID int, planID int) (int, error) {
 	return response.LinodeID, err
 }
 
+// Deletes the specified Linode.
+// If skipChecks is false, the Linode will only be deleted if there are no disk images.
+// Otherwise, the Linode is always deleted.
 func (client *Client) DeleteLinode(linodeID int, skipChecks bool) error {
 	params := map[string]string{
 		"LinodeID": fmt.Sprintf("%d", linodeID),
@@ -35,6 +39,8 @@ func (client *Client) linodeAction(action string, linodeID int) (int, error) {
 	return response.JobID, err
 }
 
+// Boots Linode with the last used configuration profile, or the first configuration profile
+// if the Linode has not been booted before.
 func (client *Client) BootLinode(linodeID int) (int, error) {
 	return client.linodeAction("boot", linodeID)
 }
@@ -93,6 +99,8 @@ func (client *Client) ResizeLinode(linodeID int, planID int) error {
 	return client.request("linode.resize", params, nil)
 }
 
+// Clones the Linode to a new instance in the specified datacenter with the specified plan.
+// Returns Linode ID on success.
 func (client *Client) CloneLinode(linodeID int, datacenterID int, planID int) (int, error) {
 	params := map[string]string{
 		"LinodeID": fmt.Sprintf("%d", linodeID),
@@ -312,6 +320,7 @@ func (client *Client) SetRDNS(ipID int, hostname string) error {
 	return client.request("linode.ip.setrdns", params, nil)
 }
 
+// Moves the specified IP address to the specified Linode.
 func (client *Client) MoveIP(ipID int, linodeID int) error {
 	params := map[string]string{
 		"IPAddressID": fmt.Sprintf("%d", ipID),
@@ -320,6 +329,7 @@ func (client *Client) MoveIP(ipID int, linodeID int) error {
 	return client.request("linode.ip.swap", params, nil)
 }
 
+// Swaps IP addresses between two different Linodes in the same datacenter.
 func (client *Client) SwapIP(ipID1 int, ipID2 int) error {
 	params := map[string]string{
 		"IPAddressID": fmt.Sprintf("%d", ipID1),
@@ -328,6 +338,9 @@ func (client *Client) SwapIP(ipID1 int, ipID2 int) error {
 	return client.request("linode.ip.swap", params, nil)
 }
 
+// Adds an IP address to the specified Linode.
+// If private is false, adds a public IP, otherwise adds a private IP.
+// Returns the IP address ID on success.
 func (client *Client) AddIP(linodeID int, private bool) (int, error) {
 	params := map[string]string{
 		"LinodeID": fmt.Sprintf("%d", linodeID),

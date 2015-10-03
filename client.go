@@ -11,9 +11,15 @@ import "net/url"
 
 const API_URL = "https://api.linode.com/"
 
+// Linode API client.
+// Note that Linode API encodes booleans as JSON integers, and returned objects will correspondingly contain integer fields.
 type Client struct {
+	// The Linode API key.
 	APIKey string
+
+	// An HTTP client to perform API requests.
 	HTTPClient *http.Client
+
 	apiURL string
 }
 

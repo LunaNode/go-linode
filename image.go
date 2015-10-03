@@ -6,6 +6,8 @@ package linode
 import "errors"
 import "fmt"
 
+// Returns a list of images on the user account.
+// Restricts to pending images if pendingOnly is true.
 func (client *Client) ListImages(pendingOnly bool) ([]*Image, error) {
 	params := make(map[string]string)
 	if pendingOnly {
